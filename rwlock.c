@@ -1,4 +1,4 @@
-include "rwlock.h"
+#include "rwlock.h"
 void rwlock_init(rwlock_t* rwlock){
     pthread_mutex_init(&(rwlock->mutex), NULL);
     
@@ -52,5 +52,5 @@ void rwlock_unlock(rwlock_t* rwlock){
     }else{
         rwlock->write_now--;
     }
-    pthread_mutex_unslock(&(rwlock->mutex));
+    pthread_mutex_unlock(&(rwlock->mutex));
 }
