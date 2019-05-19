@@ -11,7 +11,7 @@ void rwlock_init(rwlock_t* rwlock){
     rwlock->write_wait = 0;
 }
 
-void rwlock_destory(rwlock_t* rwlock){
+void rwlock_destroy(rwlock_t* rwlock){
     pthread_mutex_destroy(&(rwlock->mutex));
     pthread_cond_destroy(&(rwlock->read));
     pthread_cond_destroy(&(rwlock->write));
