@@ -3,6 +3,66 @@
 #include <stdio.h>
 #include "ListNode.h"
 
+#define NUM_THREADS 4
+#define NUM_ITER 100;
+
+typedef struct{
+	int	threadId;
+    ListNode* listHead;
+    rwlock_t* rwlock_;
+} threadParm_t;
+
+int n_iter = NUM_ITER;
+
+void *rwlock_Find(void *parm)
+{
+    threadParm_t *p = (threadParm_t *) parm;
+    int r = p->threadId;
+    ListNode* ListHead = p->listHead;
+    rwlock_t* rwlock_ = p->rwlock_;
+
+    for(int i = 0; i < n_iter; i++){
+        int x = rand()% NUM_ITER ;
+        rw_Find(ListHead, rwlock_, &x, 0);
+        printf("In Iter: %d, find %d\n",i,x);
+    }
+
+    pthread_exit(NULL);
+}
+
+void *rwlock_Insert(void *parm)
+{
+    threadParm_t *p = (threadParm_t *) parm;
+    int r = p->threadId;
+    ListNode* ListHead = p->listHead;
+    rwlock_t* rwlock_ = p->rwlock_;
+
+    for(int i = 0; i < n_iter; i++){
+        int x = rand();
+        rw_Insert(ListHead, rwlock_, x, 0);
+        printf("In Iter: %d, Insert %d\n",i,x);
+    }
+
+    pthread_exit(NULL);
+}
+
+void *rwlock_Delete(void *parm)
+{
+    threadParm_t *p = (threadParm_t *) parm;
+    int r = p->threadId;
+    ListNode* ListHead = p->listHead;
+    rwlock_t* rwlock_ = p->rwlock_;
+
+    for(int i = 0; i < n_iter; i++){
+        //int x = rand();
+        rw_Delete(ListHead, rwlock_, 0);
+        printf("In Iter: %d, Delete Pos %d\n",i,0);
+    }
+
+    pthread_exit(NULL);
+}
+
+
 
 void Print(ListNode* head){
     ListNode* p = head->next;
@@ -15,54 +75,32 @@ void Print(ListNode* head){
 
 int main(){
     ListNode* dummy_head = (ListNode*) malloc(sizeof(ListNode));
-    int find_val;
-    bool isFind;
-    dummy_head->val = 0xffff;
     rwlock_t * rwlock_ = (rwlock_t *) malloc(sizeof(rwlock_t));
     rwlock_init(rwlock_);
-    //Test the correctness of Insert
-    rw_Insert(dummy_head, rwlock_, 2, 0);
-    rw_Insert(dummy_head, rwlock_, 3, 0);
-    rw_Insert(dummy_head, rwlock_, 4, 0);
-    Print(dummy_head);
-    //Delete # of elements larger than length of LinkedList
-    rw_Delete(dummy_head, rwlock_, 0);
-    rw_Delete(dummy_head, rwlock_, 0);
-    rw_Delete(dummy_head, rwlock_, 0);
-    rw_Delete(dummy_head, rwlock_, 0);
-    rw_Delete(dummy_head, rwlock_, 0);
-    Print(dummy_head);
-    rw_Insert(dummy_head, rwlock_, 4, 0);
-    rw_Delete(dummy_head, rwlock_, 0);
-    rw_Insert(dummy_head, rwlock_, 2, 0);
-    rw_Insert(dummy_head, rwlock_, 3, 0);
-    rw_Insert(dummy_head, rwlock_, 4, 0);
 
-    //Test the correctness of Find
-    Print(dummy_head);
-    isFind = rw_Find(dummy_head, rwlock_, &find_val, 3);
-    if(isFind) printf("Find value: %d\n",find_val);
-    else printf("Failure to Find\n");
+    pthread_t	thread[NUM_THREADS];
+    threadParm_t	threadParm[NUM_THREADS];
 
-    rw_Delete(dummy_head, rwlock_, 0);
-    rw_Delete(dummy_head, rwlock_, 0);
-    rw_Insert(dummy_head, rwlock_, 4, 0);
-    rw_Delete(dummy_head, rwlock_, 0);
+    for(int i = 0; i < NUM_THREADS; i++){
+        threadParm[i].threadId = i;
+        threadParm[i].listHead = dummy_head;
+        threadParm[i].rwlock_ = rwlock_;
 
-    Print(dummy_head);
-    isFind = rw_Find(dummy_head, rwlock_, &find_val, 0);
-    if(isFind) printf("Find value: %d\n",find_val);
-    else printf("Failure to Find\n");
-    
-    rw_Insert(dummy_head, rwlock_, 2, 0);
-    rw_Insert(dummy_head, rwlock_, 3, 0);
-    rw_Insert(dummy_head, rwlock_, 4, 0);
-    rw_Insert(dummy_head, rwlock_, 4, 0);
-    rw_Delete(dummy_head, rwlock_, 0);
-    //Free all the information of LinkedList
-    Print(dummy_head);
-    while(rw_Delete(dummy_head, rwlock_, 0));
-    Print(dummy_head);
+        if((i % NUM_THREADS) >= 2)
+            pthread_create(&thread[i], NULL, rwlock_Find, (void *)&threadParm[i]);
+
+        if((i % NUM_THREADS) == 0){
+            pthread_create(&thread[i], NULL, rwlock_Insert, (void *)&threadParm[i]);
+        }
+        if((i % NUM_THREADS) == 1)    pthread_create(&thread[i], NULL, rwlock_Delete, (void *)&threadParm[i]);
+    }
+
+	for (int i=0; i<NUM_THREADS; i++)
+	{
+		pthread_join(thread[i], NULL);
+	}
+
+
     free(dummy_head);
     rwlock_destroy(rwlock_);
     free(rwlock_);
