@@ -2,6 +2,7 @@
 #include <stdbool.h>
 struct ListNode{
     int val;
+    int len;
     struct ListNode* next;
 };
 

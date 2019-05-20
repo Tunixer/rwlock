@@ -19,9 +19,7 @@ void rwlock_destroy(rwlock_t* rwlock){
 }
 
 void rwlock_rdlock(rwlock_t* rwlock){
-    printf("Try to get READ lock\n");
     pthread_mutex_lock(&(rwlock->mutex));
-    printf("Got READ lock!!!\n");
     if(rwlock->write_now == 0) rwlock->read_now++;
     else{
         rwlock->read_wait++;
@@ -30,13 +28,10 @@ void rwlock_rdlock(rwlock_t* rwlock){
         rwlock->read_wait--;
         rwlock->read_now++;
     }
-    printf("Try to release mutex, read_now = %d\n",rwlock->read_now);   
     pthread_mutex_unlock(&(rwlock->mutex));
-    printf("release mutex, read_now = %d\n",rwlock->read_now);   
 }
 
 void rwlock_wrlock(rwlock_t* rwlock){
-    printf("Try to get write lock\n");
     pthread_mutex_lock(&(rwlock->mutex));  
     //No write and read
     if(rwlock->read_now == 0 && rwlock->write_now == 0) rwlock->write_now++;
@@ -63,5 +58,4 @@ void rwlock_unlock(rwlock_t* rwlock){
         else if(rwlock->write_wait > 0) pthread_cond_signal(&rwlock->write);
     }
     pthread_mutex_unlock(&(rwlock->mutex));
-    printf("release lock, read_now = %d\n",rwlock->read_now);
 }
