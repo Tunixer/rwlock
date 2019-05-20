@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include "ListNode.h"
 
-#define NUM_THREADS 4
-#define NUM_ITER 100;
+#define NUM_THREADS 8
+#define NUM_ITER 100
 
 typedef struct{
 	int	threadId;
@@ -24,7 +24,7 @@ void *rwlock_Find(void *parm)
     for(int i = 0; i < n_iter; i++){
         int x = rand()% NUM_ITER ;
         rw_Find(ListHead, rwlock_, &x, 0);
-        printf("In Iter: %d, find %d\n",i,x);
+        printf("Thread: %d, In Iter: %d, find %d\n\n",r,i,x);
     }
 
     pthread_exit(NULL);
@@ -38,9 +38,9 @@ void *rwlock_Insert(void *parm)
     rwlock_t* rwlock_ = p->rwlock_;
 
     for(int i = 0; i < n_iter; i++){
-        int x = rand();
+        int x = rand()% (NUM_ITER*1000);
         rw_Insert(ListHead, rwlock_, x, 0);
-        printf("In Iter: %d, Insert %d\n",i,x);
+        printf("In Iter: %d, Insert %d\n\n",i,x);
     }
 
     pthread_exit(NULL);
@@ -86,13 +86,15 @@ int main(){
         threadParm[i].listHead = dummy_head;
         threadParm[i].rwlock_ = rwlock_;
 
-        if((i % NUM_THREADS) >= 2)
+        if((i % 2) == 0){
             pthread_create(&thread[i], NULL, rwlock_Find, (void *)&threadParm[i]);
+        }
 
-        if((i % NUM_THREADS) == 0){
+
+        if((i % 4) == 1){
             pthread_create(&thread[i], NULL, rwlock_Insert, (void *)&threadParm[i]);
         }
-        if((i % NUM_THREADS) == 1)    pthread_create(&thread[i], NULL, rwlock_Delete, (void *)&threadParm[i]);
+        if((i % 4) == 3)    pthread_create(&thread[i], NULL, rwlock_Delete, (void *)&threadParm[i]);
     }
 
 	for (int i=0; i<NUM_THREADS; i++)
