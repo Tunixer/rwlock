@@ -1,100 +1,119 @@
-Insert value: 2362, address: 2483030816
-Insert value: 8690, address: 2483034960
-Insert value: 59, address: 2483034992
-Insert value: 7763, address: 2483035024
-Insert value: 3926, address: 2483035056
-Insert value: 540, address: 2483035088
-Insert value: 3426, address: 2483035120
-Insert value: 9172, address: 2483035152
-Insert value: 5736, address: 2483035184
-Insert value: 5211, address: 2483035216
-Thread: 3, In Iter: 0, Delete Address: 2483035216
-
-Delete value: 5211, address: 2483035216
-Linked List len: 9
-Thread: 3, In Iter: 1, Delete Address: 2483035184
-
-Delete value: 5736, address: 2483035184
-Linked List len: 8
-Thread: 3, In Iter: 2, Delete Address: 2483035152
-
-Delete value: 9172, address: 2483035152
-Linked List len: 7
-Thread: 3, In Iter: 3, Delete Address: 2483035120
-
-Delete value: 3426, address: 2483035120
-Linked List len: 6
-Thread: 3, In Iter: 4, Delete Address: 2483035088
-
-Delete value: 540, address: 2483035088
-Linked List len: 5
-Thread: 3, In Iter: 5, Delete Address: 2483035056
-
-Delete value: 3926, address: 2483035056
-Linked List len: 4
-Thread: 3, In Iter: 6, Delete Address: 2483035024
-
-Delete value: 7763, address: 2483035024
-Linked List len: 3
-Thread: 3, In Iter: 7, Delete Address: 2483034992
-
-Delete value: 59, address: 2483034992
-Linked List len: 2
-Thread: 3, In Iter: 8, Delete Address: 2483034960
-
-Delete value: 8690, address: 2483034960
-Linked List len: 1
-Thread: 3, In Iter: 9, Delete Address: 2483030816
-
-Delete value: 2362, address: 2483030816
-Linked List len: 0
-Insert value: 6229, address: 2214595360
-Insert value: 7373, address: 2214595392
-Insert value: 4421, address: 2214595424
-Insert value: 4919, address: 2214595456
-Insert value: 3784, address: 2214595488
-Insert value: 8537, address: 2214595520
-Insert value: 5198, address: 2214595552
-Insert value: 4324, address: 2214595584
-Insert value: 8315, address: 2214595616
-Insert value: 4370, address: 2214595648
-Thread: 7, In Iter: 0, Delete Address: 2214595648
-
-Delete value: 4370, address: 2214595648
-Linked List len: 9
-Thread: 7, In Iter: 1, Delete Address: 2214595616
-
-Delete value: 8315, address: 2214595616
-Linked List len: 8
-Thread: 7, In Iter: 2, Delete Address: 2214595584
-
-Delete value: 4324, address: 2214595584
-Linked List len: 7
-Thread: 7, In Iter: 3, Delete Address: 2214595552
-
-Delete value: 5198, address: 2214595552
-Linked List len: 6
-Thread: 7, In Iter: 4, Delete Address: 2214595520
-
-Delete value: 8537, address: 2214595520
-Linked List len: 5
-Thread: 7, In Iter: 5, Delete Address: 2214595488
-
-Delete value: 3784, address: 2214595488
-Linked List len: 4
-Thread: 7, In Iter: 6, Delete Address: 2214595456
-
-Delete value: 4919, address: 2214595456
-Linked List len: 3
-Thread: 7, In Iter: 7, Delete Address: 2214595424
-
-Delete value: 4421, address: 2214595424
-Linked List len: 2
-Thread: 7, In Iter: 8, Delete Address: 2214595392
-
-Delete value: 7373, address: 2214595392
-Linked List len: 1
-Thread: 7, In Iter: 9, Delete Address: 2214595360
-
-Delete value: 6229, address: 2214595360
-Linked List len: 0
+3 want to free address: 3288340032
+7 want to free address: 3288340000
+BBBB:139692921915136
+7 want to free address: 3019901984
+7 want to free address: 3288339968
+7 want to free address: 3288339936
+7 want to free address: 3288339904
+7 want to free address: 3288339872
+7 want to free address: 3288339840
+7 want to free address: 3288339808
+7 want to free address: 3288339776
+7 want to free address: 3288339744
+7 want to free address: 3288339712
+7 want to free address: 3288339680
+7 want to free address: 3288339648
+7 want to free address: 3288339616
+7 want to free address: 3288339584
+7 want to free address: 3288339552
+7 want to free address: 3019902016
+3 want to free address: 3019902016
+3 want to free address: 3019902016
+7 want to free address: 3288339520
+3 want to free address: 3288339488
+7 want to free address: 3019902080
+3 want to free address: 3019902048
+7 want to free address: 3019902080
+3 want to free address: 3288339456
+7 want to free address: 3288339424
+3 want to free address: 3019902080
+7 want to free address: 3288339392
+7 want to free address: 3019904768
+7 want to free address: 3019904736
+7 want to free address: 3019904704
+7 want to free address: 3019904672
+7 want to free address: 3019904640
+7 want to free address: 3019904608
+7 want to free address: 3019904576
+7 want to free address: 3019904544
+7 want to free address: 3019904512
+7 want to free address: 3019904480
+7 want to free address: 3019904448
+7 want to free address: 3019904416
+7 want to free address: 3019904384
+7 want to free address: 3019904352
+7 want to free address: 3019904320
+7 want to free address: 3019904288
+7 want to free address: 3019904256
+7 want to free address: 3019904224
+7 want to free address: 3019904192
+7 want to free address: 3019904160
+7 want to free address: 3019904128
+7 want to free address: 3019904096
+7 want to free address: 3019904064
+7 want to free address: 3019904032
+7 want to free address: 3019904000
+7 want to free address: 3019903968
+7 want to free address: 3019903936
+7 want to free address: 3019903904
+7 want to free address: 3019903872
+7 want to free address: 3019903840
+7 want to free address: 3019903808
+7 want to free address: 3019903776
+7 want to free address: 3019903744
+7 want to free address: 3019903712
+7 want to free address: 3019903680
+7 want to free address: 3019903648
+7 want to free address: 3019903616
+7 want to free address: 3019903584
+7 want to free address: 3019903552
+7 want to free address: 3019903520
+7 want to free address: 3019903488
+7 want to free address: 3019903456
+7 want to free address: 3019903424
+7 want to free address: 3019903392
+7 want to free address: 3019903360
+7 want to free address: 3019903328
+7 want to free address: 3019903296
+7 want to free address: 3019903264
+7 want to free address: 3019903232
+7 want to free address: 3019903200
+7 want to free address: 3019903168
+7 want to free address: 3019903136
+7 want to free address: 3019903104
+7 want to free address: 3019903072
+7 want to free address: 3019903040
+3 want to free address: 3019903008
+3 want to free address: 3019902976
+3 want to free address: 3019902944
+3 want to free address: 3019902912
+3 want to free address: 3019902880
+3 want to free address: 3019902848
+3 want to free address: 3019902816
+3 want to free address: 3019902784
+3 want to free address: 3019902752
+3 want to free address: 3019902720
+3 want to free address: 3019902688
+3 want to free address: 3019902656
+3 want to free address: 3019902624
+3 want to free address: 3019902592
+3 want to free address: 3019902560
+3 want to free address: 3019902528
+3 want to free address: 3019902496
+3 want to free address: 3019902464
+3 want to free address: 3019902432
+3 want to free address: 3019902400
+3 want to free address: 3019902368
+3 want to free address: 3019902336
+3 want to free address: 3019902304
+BBBB:139692913460992
+BBBB:139692905006848
+BBBB:139692896552704
+7 want to free address: 3019902272
+7 want to free address: 3019902240
+7 want to free address: 3019902208
+7 want to free address: 3019902176
+7 want to free address: 3019902144
+7 want to free address: 3019902112
+7 want to free address: 3288339360
+7 want to free address

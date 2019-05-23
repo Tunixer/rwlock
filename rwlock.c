@@ -34,12 +34,13 @@ void rwlock_rdlock(rwlock_t* rwlock){
 void rwlock_wrlock(rwlock_t* rwlock){
     pthread_mutex_lock(&(rwlock->mutex));  
     //No write and read
+    // printf("Write_now: %d\n", rwlock->write_now);
     if(rwlock->read_now == 0 && rwlock->write_now == 0) rwlock->write_now++;
     else{
         rwlock->write_wait++;
-
+        // printf("Write_Start_Wait_now\n");
         pthread_cond_wait(&(rwlock->write),&(rwlock->mutex));
-
+        // printf("Write_Finish_Wait_now\n");
         rwlock->write_wait--;
         rwlock->write_now++;
     }

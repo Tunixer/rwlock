@@ -7,6 +7,6 @@ struct ListNode{
 };
 
 typedef struct ListNode ListNode;
-bool rw_Insert(ListNode* head, rwlock_t* rwlock, int value, int pos);
-bool rw_Find(ListNode* head, rwlock_t* rwlock, int *value, int pos);
-bool rw_Delete(ListNode* head, rwlock_t* rwlock, int pos);
+bool rw_Insert(ListNode* head, rwlock_t* rwlock, int value, int pos, int threadID);
+bool rw_Find(ListNode* head, rwlock_t* rwlock, int *value, int pos, int threadID);
+bool rw_Delete(ListNode* head, rwlock_t* rwlock, int pos, int threadID);

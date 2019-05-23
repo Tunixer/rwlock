@@ -5,41 +5,21 @@
 if pos > len(List) then Insert value to the end of list
 Insert value to the pos
 */
-bool rw_Insert(ListNode* head, rwlock_t* rwlock, int value, int pos){
+bool rw_Insert(ListNode* head, rwlock_t* rwlock, int value, int pos, int threadID){
     rwlock_wrlock(rwlock);
     ListNode *p = head,*tmp = (ListNode*) malloc(sizeof(ListNode));
     tmp->val = value;
-    int i = 0;
-    while(i < pos){
-        if(p->next != NULL){
-            p = p->next;
-        }else{
-            break;
-        }
-        i++;
-    }
-    ListNode *ptr = p->next;
-    p->next = tmp;
-    tmp->next = ptr;
+    tmp->next = head->next;
+    head->next = tmp;
     head->len++;
-    printf("Insert value: %d, address: %u\n",tmp->val,(unsigned int)(tmp));
     rwlock_unlock(rwlock);
     return true;
 }
 //Find the value of element at pos
-bool rw_Find(ListNode* head, rwlock_t* rwlock, int *value, int pos){
+bool rw_Find(ListNode* head, rwlock_t* rwlock, int *value, int pos, int threadID){
     rwlock_rdlock(rwlock);
     ListNode *p = head;
-    int i = 0;
-    while(i < pos){
-        if(p->next != NULL){
-            p = p->next;
-        }else{
-            break;
-        }
-        i++;
-    }
-    if(p->next == NULL){
+    if(head->next == NULL || head == NULL){
         rwlock_unlock(rwlock);
         return false;
     }
@@ -50,33 +30,21 @@ bool rw_Find(ListNode* head, rwlock_t* rwlock, int *value, int pos){
 /*
 Delete the element in the pos(thus the element of p->next)
 */
-bool rw_Delete(ListNode* head, rwlock_t* rwlock, int pos){
+bool rw_Delete(ListNode* head, rwlock_t* rwlock, int pos, int threadID){
     rwlock_wrlock(rwlock);
-    ListNode *p = head, *tmp;
-
-    if(head->len == 0){
+    // printf("%d GOT write lock\n", threadID);
+    if(head->next == NULL || head == NULL){
         rwlock_unlock(rwlock);
-        return false; 
+        return true;        
     }
-    int i = 0;
-    while(i < pos){
-        if(p->next != NULL){
-            p = p->next;
-        }else{
-            break;
-        }
-        i++;
-    }
-    if(p->next == NULL){
-        rwlock_unlock(rwlock);
-        return false;  
-    }
-    tmp = p->next->next;
-    printf("Delete value: %d, address: %u\n",p->next->val,(unsigned int)(p->next));
-    free(p->next);
-    p->next = tmp;
+    ListNode* tmp = head->next;
+    printf("%d want to free address: %u\n", threadID, tmp);
+    head->next = tmp->next;
     head->len--;
-    printf("Linked List len: %d\n",head->len);
+    free(tmp);
+    // printf("%d want to free address: %u\n", threadID, tmp);
+    //free(tmp);
+    // printf("%d want to RELEASE write lock\n", threadID);
     rwlock_unlock(rwlock);
     return true;
 }
