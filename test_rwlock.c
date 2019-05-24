@@ -2,25 +2,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "ListNode.h"
+#include "time.h"
 
-#define NUM_THREADS 8
-#define NUM_ITER 100
+#define NUM_THREADS 16
+#define NUM_ITER 1000000
 
 typedef struct{
 	int	threadId;
-    ListNode* listHead;
+    Node* listHead;
     rwlock_t* rwlock_;
 } threadParm_t;
 
 
-void Print(ListNode* head){
-    ListNode* p = head->next;
-    printf("List: ");
-    for(; p != NULL; p = p->next){
-        printf("%d ",p->val);
-    }
-    printf("\n");
-}
 
 
 int n_iter = NUM_ITER;
@@ -29,7 +22,7 @@ void *rwlock_Find(void *parm)
 {
     threadParm_t *p = (threadParm_t *) parm;
     int r = p->threadId;
-    ListNode* ListHead = p->listHead;
+    Node* ListHead = p->listHead;
     rwlock_t* rwlock_ = p->rwlock_;
 
     for(int i = 0; i < n_iter; i++){
@@ -46,7 +39,7 @@ void *rwlock_Insert(void *parm)
 {
     threadParm_t *p = (threadParm_t *) parm;
     int r = p->threadId;
-    ListNode* ListHead = p->listHead;
+    Node* ListHead = p->listHead;
     rwlock_t* rwlock_ = p->rwlock_;
 
     for(int i = 0; i < n_iter; i++){
@@ -63,7 +56,7 @@ void *rwlock_Delete(void *parm)
 {
     threadParm_t *p = (threadParm_t *) parm;
     int r = p->threadId;
-    ListNode* ListHead = p->listHead;
+    Node* ListHead = p->listHead;
     rwlock_t* rwlock_ = p->rwlock_;
 
     for(int i = 0; i < n_iter; i++){
@@ -78,9 +71,8 @@ void *rwlock_Delete(void *parm)
 
 
 int main(){
-
-    ListNode* dummy_head = (ListNode*) malloc(sizeof(ListNode));
-    dummy_head->len = 0;
+    clock_t start,end;
+    Node* dummy_head = (Node*) malloc(sizeof(Node));
     rwlock_t * rwlock_ = (rwlock_t *) malloc(sizeof(rwlock_t));
     rwlock_init(rwlock_);
     pthread_t	thread[NUM_THREADS];
@@ -109,7 +101,6 @@ int main(){
 
 	for (int i=0; i<NUM_THREADS; i++)
 	{
-        printf("BBBB:%lu\n",thread[i]);
 		pthread_join(thread[i], NULL);
 	}
 

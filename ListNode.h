@@ -1,12 +1,11 @@
 #include "rwlock.h"
 #include <stdbool.h>
-struct ListNode{
-    int val;
-    int len;
-    struct ListNode* next;
-};
+typedef struct node
+{
+  int data;
+  struct node* next;// 这个地方注意结构体变量的定义规则
+} Node, *PNode;
 
-typedef struct ListNode ListNode;
-bool rw_Insert(ListNode* head, rwlock_t* rwlock, int value, int pos, int threadID);
-bool rw_Find(ListNode* head, rwlock_t* rwlock, int *value, int pos, int threadID);
-bool rw_Delete(ListNode* head, rwlock_t* rwlock, int pos, int threadID);
+bool rw_Insert(PNode head, rwlock_t* rwlock, int value, int pos, int threadID);
+bool rw_Find(PNode head, rwlock_t* rwlock, int *value, int pos, int threadID);
+bool rw_Delete(PNode head, rwlock_t* rwlock, int pos, int threadID);
